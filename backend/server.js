@@ -43,6 +43,6 @@ app.get('/menu/:id/items', async (req, res) => {
     }
 })
 
-app.listen(port, () => {
+app.listen(process.env.PG_PORT || port, () => {
     console.log(`Listening to port ${port}`);
 })
