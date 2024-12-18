@@ -2,6 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import background from "../images/bg.jpg";
 
+const offMenu = [
+  {id:1,item_name:"CLASSIC MOJITO",description:'White rum, mint leaves, lime juice, soda water',price:12},
+  {id:2,item_name:"ESPRESSO MARTINI",description:'Vodka, espresso, coffee liqueur, sugar syrup',price:16},
+  {id:3,item_name:"PINA COLADA",description:'Rum, coconut cream, pineapple juice, crushed ice',price:26},
+  {id:4,item_name:"BLUE LAGOON",description:'Vodka, lemon juice, blue curacao, soda',price:22},
+];
+
 const Menu = () => {
   const [menus, setMenus] = useState([]);
   const [items, setItems] = useState([]);
@@ -100,9 +107,20 @@ const Menu = () => {
               </div>
             ))
           ) : (
-            <p className="flex justify-start text-md font-small text-gray-500 sm:text-xl/8">
-              Select a menu to view the items
-            </p>
+            offMenu.map((item) => (
+              <div
+                key={item.id}
+                class="flex flex-wrap bg-transparent text-white p-4 rounded-md"
+              >
+                <h2 className="text-xl font-semibold mb-2">
+                  {item.item_name}........................${item.price}
+                </h2>
+                <p className="text-gray-400">{item.description}</p>
+              </div>
+            ))
+            // <p className="flex justify-start text-md font-small text-gray-500 sm:text-xl/8">
+            //   Select a menu to view the items
+            // </p>
           )}
         </div>
       </div>

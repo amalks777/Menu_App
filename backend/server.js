@@ -19,7 +19,7 @@ const db = new pg.Client({
 db.connect();
 
 app.use(cors());
-// app.use(bodyParser.json());
+app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended:true}));
