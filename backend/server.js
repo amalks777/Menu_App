@@ -14,13 +14,16 @@ const db = new pg.Client({
     host: process.env.PG_HOST,
     database: process.env.PG_DATABASE,
     password: process.env.PG_PASSWORD,
-    port: 5433,
+    port: process.env.PG_PORT,
 });
 db.connect();
 
 app.use(cors());
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({extended:true}));
+
 
 app.get('/menus',async (req, res) => {
     try {
@@ -44,5 +47,5 @@ app.get('/menu/:id/items', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Listening to port ${port}`);
+    console.log(`Listening to port http://localhost:${port}`);
 })

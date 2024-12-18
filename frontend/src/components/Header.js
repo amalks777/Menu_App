@@ -24,6 +24,7 @@ const Header = () => {
             <Link
               to={link.href}
               className={link.current ? "text-blue-700" : "text-white"}
+              key={link.name}
             >
               {link.name}
             </Link>
