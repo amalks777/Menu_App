@@ -47,5 +47,5 @@ app.get('/menu/:id/items', async (req, res) => {
 })
 
 app.listen(port, () => {
-    console.log(`Listening to port http://localhost:${port}`);
+    console.log(`Listening to port is http://localhost:${port}`);
 })
