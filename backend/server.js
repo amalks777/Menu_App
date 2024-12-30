@@ -36,13 +36,20 @@ app.get('/menus',async (req, res) => {
 });
 
 app.get('/menu/:id/items', async (req, res) => {
-    const { id } = req.params;
     try {
+        const { id } = req.params;
         const result = await db.query('SELECT * FROM items WHERE menu_id = $1', [id]);
+
+        if (result.rows.length === 0) {
+            return res.status(404).json({ message: "No items found for this menu" });
+          }
+          
         res.json(result.rows);
         console.log(result.rows);
     } catch (error) {
         // console.log("error fetch data");
+        console.error("Error fetching items:", error);
+    res.status(500).json({ message: "Internal server error" });
     }
 })
 
