@@ -42,7 +42,7 @@ app.get('/menu/:id/items', async (req, res) => {
         res.json(result.rows);
         console.log(result.rows);
     } catch (error) {
-        console.log("error fetch data");
+        // console.log("error fetch data");
     }
 })
 
