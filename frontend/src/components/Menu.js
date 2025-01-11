@@ -12,7 +12,7 @@ const offMenu = [
 const Menu = () => {
   const [menus, setMenus] = useState([]);
   const [items, setItems] = useState([]);
-  const [selectedMenuId, setSelectedMenuId] = useState(1);
+  const [selectedMenuId, setSelectedMenuId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -26,6 +26,14 @@ const Menu = () => {
     fetchData();
   }, []);
 
+
+  useEffect(() => {
+    if (selectedMenuId) { 
+      fetchItems(selectedMenuId);
+    }
+  }, [selectedMenuId]); 
+
+
   const fetchItems = async (menuId) => {
     try {
       const response = await axios.get(
@@ -36,11 +44,10 @@ const Menu = () => {
       console.error("Error fetching items:", error);
     }
   };
-  fetchItems();
 
   const handleMenu = (menuId) => {
     setSelectedMenuId(menuId);
-    fetchItems(menuId);
+    console.log("fetch button clicked");
   };
 
   return (
@@ -67,7 +74,7 @@ const Menu = () => {
         </div>
       </section>
 
-      <div class="container mx-auto py-4 flex justify-center space-x-4 mt-10">
+      <div className="container mx-auto py-4 flex justify-center space-x-4 mt-10">
         {menus.map((menu) => (
           <button
             key={menu.id}
@@ -110,7 +117,7 @@ const Menu = () => {
             offMenu.map((item) => (
               <div
                 key={item.id}
-                class="flex flex-wrap bg-transparent text-white p-4 rounded-md"
+                className="flex flex-wrap bg-transparent text-white p-4 rounded-md"
               >
                 <h2 className="text-xl font-semibold mb-2">
                   {item.item_name}........................${item.price}
@@ -118,9 +125,6 @@ const Menu = () => {
                 <p className="text-gray-400">{item.description}</p>
               </div>
             ))
-            // <p className="flex justify-start text-md font-small text-gray-500 sm:text-xl/8">
-            //   Select a menu to view the items
-            // </p>
           )}
         </div>
       </div>

@@ -35,23 +35,42 @@ app.get('/menus',async (req, res) => {
     }
 });
 
-app.get('/menu/:id/items', async (req, res) => {
-    try {
-        const { id } = req.params;
-        const result = await db.query('SELECT * FROM items WHERE menu_id = $1', [id]);
+// app.get('/menu/:id/items', async (req, res) => {
+//     try {
+//         const { id } = req.params;
+//         const result = await db.query('SELECT * FROM items WHERE menu_id = $1', [id]);
 
-        if (result.rows.length === 0) {
-            return res.status(404).json({ message: "No items found for this menu" });
-          }
+//         if (result.rows.length === 0) {
+//             return res.status(404).json({ message: "No items found for this menu" });
+//           }
           
-        res.json(result.rows);
-        console.log(result.rows);
-    } catch (error) {
-        // console.log("error fetch data");
-        console.error("Error fetching items:", error);
-    res.status(500).json({ message: "Internal server error" });
+//         res.json(result.rows);
+//         console.log(result.rows);
+//     } catch (error) {
+//         console.log("error fetch data");
+//         console.error("Error fetching items:", error);
+//     res.status(500).json({ message: "Internal server error" });
+//     }
+// });
+
+app.get('/menu/:id/items', async (req, res) => {
+    console.log("Request params:", req.params.id);
+    const { id } = req.params;
+    console.log("ID from params:", id);
+  
+    if (!id) {
+      return res.status(400).json({ error: 'Invalid menu ID' });
     }
-})
+  
+    try {
+      const result = await db.query("SELECT * FROM items WHERE menu_id = $1", [id]);
+      res.json(result.rows);
+      console.log("rows are : ",result.rows);
+    } catch (error) {
+      console.error("Error fetching items:", error);
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
 
 app.listen(port, () => {
     console.log(`Listening to port is http://localhost:${port}`);
