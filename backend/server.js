@@ -18,7 +18,11 @@ const db = new pg.Client({
 });
 db.connect();
 
-app.use(cors());
+// app.use(cors());
+app.use(cors({
+  origin: 'https://menu-app-1-74gr.onrender.com',
+  credentials: true
+}));
 app.use(bodyParser.json());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
